@@ -16,8 +16,8 @@ class PredictiveModel():
         self.xStored = []
         self.uStored = []
         self.MaxNumPoint = 7 # max number of point per lap to use 
-        self.h = 5 # bandwidth of the Kernel for local linear regression
-        self.lamb = 0.0 # regularization
+        self.h = 6 # bandwidth of the Kernel for local linear regression
+        self.lamb = 0.0000001 # regularization
         self.dt = 0.1
         self.scaling = np.array([[0.1, 0.0, 0.0, 0.0, 0.0],
                                 [0.0, 1.0, 0.0, 0.0, 0.0],
@@ -90,6 +90,9 @@ class PredictiveModel():
 
         if s < 0:
             print("s is negative, here the state: \n", x)
+            s += self.map.TrackLength
+            x[4] += self.map.TrackLength
+            print("modified s:", s)
 
         startTimer = datetime.datetime.now()  # Start timer for LMPC iteration
         cur = self.map.curvature(s)
@@ -105,8 +108,9 @@ class PredictiveModel():
         depsi_epsi = 1 - dt * (-vx * np.sin(epsi) - vy * np.cos(epsi)) / den * cur
         depsi_s    = 0  # Because cur = constant
         depsi_ey   = dt * (vx * np.cos(epsi) - vy * np.sin(epsi)) / (den ** 2) * cur * (-cur)
-
-        Ai[3, :] = [depsi_vx, depsi_vy, depsi_wz, depsi_epsi, depsi_s, depsi_ey]
+        
+        # Ai[3, :] = [depsi_vx, depsi_vy, depsi_wz, depsi_epsi, depsi_s, depsi_ey]
+        Ai[3,:] = [float(i) for i in [depsi_vx, depsi_vy, depsi_wz, depsi_epsi, depsi_s, depsi_ey]]
         Ci[3]    = epsi + dt * (wz - (vx * np.cos(epsi) - vy * np.sin(epsi)) / (1 - cur * ey) * cur) - np.dot(Ai[3, :], x)
         # ===========================
         # ===== Linearize s =========
@@ -118,7 +122,7 @@ class PredictiveModel():
         ds_s    = 1  # + Ts * (Vx * cos(epsi) - Vy * sin(epsi)) / (1 - ey * rho) ^ 2 * (-ey * drho);
         ds_ey   = -dt * (vx * np.cos(epsi) - vy * np.sin(epsi)) / (den ** 2) * (-cur)
 
-        Ai[4, :] = [ds_vx, ds_vy, ds_wz, ds_epsi, ds_s, ds_ey]
+        Ai[4, :] = [float(i) for i in [ds_vx, ds_vy, ds_wz, ds_epsi, ds_s, ds_ey]]
         Ci[4]    = s + dt * ((vx * np.cos(epsi) - vy * np.sin(epsi)) / (1 - cur * ey)) - np.dot(Ai[4, :], x)
 
         # ===========================
@@ -169,7 +173,7 @@ class PredictiveModel():
 
     def LMPC_LocLinReg(self, Q, b, inputFeatures):
         # Solve QP
-        res_cons = qp(Q, b) # This is ordered as [A B C]
+        res_cons = qp(Q, b, kktsolver='ldl') # This is ordered as [A B C]
         # Unpack results
         result = np.squeeze(np.array(res_cons['x']))
         A = result[0:len(self.stateFeatures)]
@@ -185,6 +189,8 @@ class PredictiveModel():
         diff  = np.dot(( DataMatrix - xVec ), self.scaling)
         norm = la.norm(diff, 1, axis=1)
         indexTot =  np.squeeze(np.where(norm < self.h))
+        if indexTot.shape == ():
+            indexTot = np.array([indexTot])
         if (indexTot.shape[0] >= self.MaxNumPoint):
             index = np.argsort(norm)[0:self.MaxNumPoint]
         else:

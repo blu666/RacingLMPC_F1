@@ -46,7 +46,7 @@ def main():
     xS = [x0, x0]
     dt = 0.1
 
-    map = Map(0.4)                            # Initialize map
+    map = Map(1.0)                            # Initialize map
     vt = 0.8                                  # target vevlocity
 
     # Initialize controller parameters
@@ -89,6 +89,11 @@ def main():
     predictiveModel.addTrajectory(xPID_cl,uPID_cl)
     #Initialize TV-MPC
     ltvmpcParam.timeVarying = True 
+    # ltvmpcParam.timeVarying = False 
+    # lamb = 0.0000001
+    # A, B, Error = Regression(xPID_cl, uPID_cl, lamb)
+    # ltvmpcParam.A = A
+    # ltvmpcParam.B = B
     mpc = MPC(ltvmpcParam, predictiveModel)
     # Run closed-loop sim
     xTVMPC_cl, uTVMPC_cl, xTVMPC_cl_glob, _ = simulator.sim(xS, mpc)
@@ -105,6 +110,10 @@ def main():
 
     # Initialize Controller
     lmpcParameters.timeVarying     = True 
+    # lmpcParameters.timeVarying     = False
+    # A, B, Error = Regression(xPID_cl, uPID_cl, lamb)
+    # lmpcParameters.A = A
+    # lmpcParameters.B = B
     lmpc = LMPC(numSS_Points, numSS_it, QterminalSlack, lmpcParameters, lmpcpredictiveModel)
     for i in range(0,4): # add trajectories for safe set
         lmpc.addTrajectory( xPID_cl, uPID_cl, xPID_cl_glob)

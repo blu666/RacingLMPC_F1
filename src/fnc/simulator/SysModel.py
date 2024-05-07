@@ -81,7 +81,9 @@ class Simulator():
         psi = x_glob[3]
         X = x_glob[4]
         Y = x_glob[5]
-
+        
+        # if x[4] < 0:
+        #     x[4] += self.map.TrackLength
         vx    = x[0]
         vy    = x[1]
         wz    = x[2]
@@ -112,7 +114,10 @@ class Simulator():
             cur_x_next[0] = vx   + deltaT * (a - 1 / m * Fyf * np.sin(delta) + wz*vy)
             cur_x_next[1] = vy   + deltaT * (1 / m * (Fyf * np.cos(delta) + Fyr) - wz * vx)
             cur_x_next[2] = wz   + deltaT * (1 / Iz *(lf * Fyf * np.cos(delta) - lr * Fyr) )
+            if type(epsi) != np.float64:
+                print("epsi", epsi)
             cur_x_next[3] = epsi + deltaT * ( wz - (vx * np.cos(epsi) - vy * np.sin(epsi)) / (1 - cur * ey) * cur )
+            # print(type(cur_x_next[3]), type((epsi + deltaT * ( wz - (vx * np.cos(epsi) - vy * np.sin(epsi)) / (1 - cur * ey) * cur ))[0]))
             cur_x_next[4] = s    + deltaT * ( (vx * np.cos(epsi) - vy * np.sin(epsi)) / (1 - cur * ey) )
             cur_x_next[5] = ey   + deltaT * (vx * np.sin(epsi) + vy * np.cos(epsi))
 

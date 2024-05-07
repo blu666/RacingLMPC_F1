@@ -1,5 +1,6 @@
 import numpy as np
 import numpy.linalg as la
+import matplotlib.pyplot as plt
 import pdb
 
 class Map():
@@ -28,16 +29,33 @@ class Map():
         #                  [80 * 0.03, -80 * 0.03 * 2 / np.pi]])
 
         # L-shaped track
-        self.halfWidth = 0.4
+        self.halfWidth = halfWidth
         self.slack = 0.45
         lengthCurve = 4.5
-        spec = np.array([[1.0, 0],
-                         [lengthCurve, lengthCurve / np.pi],
-                         # Note s = 1 * np.pi / 2 and r = -1 ---> Angle spanned = np.pi / 2
-                         [lengthCurve / 2, -lengthCurve / np.pi],
-                         [lengthCurve, lengthCurve / np.pi],
-                         [lengthCurve / np.pi * 2, 0],
-                         [lengthCurve / 2, lengthCurve / np.pi]])
+        # spec = np.array([[1.0, 0],
+        #                  [lengthCurve, lengthCurve / np.pi],
+        #                  # Note s = 1 * np.pi / 2 and r = -1 ---> Angle spanned = np.pi / 2
+        #                  [lengthCurve / 2, -lengthCurve / np.pi],
+        #                  [lengthCurve, lengthCurve / np.pi],
+        #                  [lengthCurve / np.pi * 2, 0],
+        #                  [lengthCurve / 2, lengthCurve / np.pi]])
+
+        #curve length = 2 * pi * radius / 4
+        spec = np.array([[4.8, 0],
+                         [0.5 * np.pi * 1.6, 1.6], # radius 1.5, 
+                         [6.4, 0],
+                         [np.pi * 1.35, 1.35], # or 1.55 if last point is (6.8, 8.0) in stead of (6.4, 8.0)
+                         [2.5, 0],
+                         [0.5 * np.pi * 1.5, -1.5],
+                         [2.8, 0],
+                         [np.pi * 2.0, 2.0]
+                        ])
+                        #  [lengthCurve, lengthCurve / np.pi],
+                        #  # Note s = 1 * np.pi / 2 and r = -1 ---> Angle spanned = np.pi / 2
+                        #  [lengthCurve / 2, -lengthCurve / np.pi],
+                        #  [lengthCurve, lengthCurve / np.pi],
+                        #  [lengthCurve / np.pi * 2, 0],
+                        #  [lengthCurve / 2, lengthCurve / np.pi]])
 
 
         # spec = np.array([[1.0, 0],
@@ -304,7 +322,8 @@ class Map():
         # Compute the segment in which system is evolving
         index = np.all([[s >= self.PointAndTangent[:, 3]], [s < self.PointAndTangent[:, 3] + self.PointAndTangent[:, 4]]], axis=0)
 
-        i = int(np.where(np.squeeze(index))[0])
+        # i = int(np.where(np.squeeze(index))[0])
+        i = np.where(np.squeeze(index))[0].astype(int)
         curvature = self.PointAndTangent[i, 5]
 
         return curvature
@@ -381,3 +400,25 @@ def sign(a):
         res = -1
 
     return res
+
+def plot_track(map):
+    Points = int(np.floor(10 * (map.PointAndTangent[-1, 3] + map.PointAndTangent[-1, 4])))
+    Points1 = np.zeros((Points, 2))
+    Points2 = np.zeros((Points, 2))
+    Points0 = np.zeros((Points, 2))
+    for i in range(0, int(Points)):
+        Points1[i, :] = map.getGlobalPosition(i * 0.1, map.halfWidth)
+        Points2[i, :] = map.getGlobalPosition(i * 0.1, -map.halfWidth)
+        Points0[i, :] = map.getGlobalPosition(i * 0.1, 0)
+
+    plt.figure()
+    plt.plot(map.PointAndTangent[:, 0], map.PointAndTangent[:, 1], 'o')
+    plt.plot(Points0[:, 0], Points0[:, 1], '--')
+    plt.plot(Points1[:, 0], Points1[:, 1], '-b')
+    plt.plot(Points2[:, 0], Points2[:, 1], '-b')
+    plt.axis('equal')
+
+if __name__ == "__main__":
+    map = Map(1.0)
+    plot_track(map)
+    plt.show()

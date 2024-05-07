@@ -41,9 +41,9 @@ def initLMPCParams(map, N):
 
    # Safe Set Parameters
     numSS_it = 4                  # Number of trajectories used at each iteration to build the safe set
-    numSS_Points = 12*numSS_it    # Number of points to select from each trajectory to build the safe set
+    numSS_Points = 20*numSS_it    # Number of points to select from each trajectory to build the safe set
 
-    Laps       = 40+numSS_it      # Total LMPC laps
+    Laps       = 70+numSS_it      # Total LMPC laps
     TimeLMPC   = 400              # Simulation time
 
     # Tuning Parameters

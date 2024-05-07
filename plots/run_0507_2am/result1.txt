@@ -1,0 +1,133 @@
+Starting PID
+===== PID terminated
+Starting MPC
+===== MPC terminated
+Starting TV-MPC
+===== TV-MPC terminated
+Starting LMPC
+Lap completed
+Completed lap:  4  in  31.5  seconds
+Lap completed
+Completed lap:  5  in  27.2  seconds
+Lap completed
+Completed lap:  6  in  23.9  seconds
+Lap completed
+Completed lap:  7  in  21.8  seconds
+Lap completed
+Completed lap:  8  in  20.2  seconds
+Lap completed
+Completed lap:  9  in  18.8  seconds
+Lap completed
+Completed lap:  10  in  17.6  seconds
+Lap completed
+Completed lap:  11  in  16.7  seconds
+Lap completed
+Completed lap:  12  in  15.7  seconds
+Lap completed
+Completed lap:  13  in  14.8  seconds
+Lap completed
+Completed lap:  14  in  14.1  seconds
+Lap completed
+Completed lap:  15  in  13.6  seconds
+Lap completed
+Completed lap:  16  in  13.0  seconds
+Lap completed
+Completed lap:  17  in  12.3  seconds
+Lap completed
+Completed lap:  18  in  12.1  seconds
+Lap completed
+Completed lap:  19  in  11.5  seconds
+Lap completed
+Completed lap:  20  in  11.1  seconds
+Lap completed
+Completed lap:  21  in  10.9  seconds
+Lap completed
+Completed lap:  22  in  10.5  seconds
+Lap completed
+Completed lap:  23  in  10.3  seconds
+Lap completed
+Completed lap:  24  in  10.1  seconds
+Lap completed
+Completed lap:  25  in  9.9  seconds
+Lap completed
+Completed lap:  26  in  9.6  seconds
+Lap completed
+Completed lap:  27  in  9.7  seconds
+Lap completed
+Completed lap:  28  in  9.3  seconds
+Lap completed
+Completed lap:  29  in  9.4  seconds
+Lap completed
+Completed lap:  30  in  9.4  seconds
+Lap completed
+Completed lap:  31  in  9.2  seconds
+Lap completed
+Completed lap:  32  in  9.3  seconds
+Lap completed
+Completed lap:  33  in  9.1  seconds
+Lap completed
+Completed lap:  34  in  9.1  seconds
+Lap completed
+Completed lap:  35  in  9.1  seconds
+Lap completed
+Completed lap:  36  in  8.9  seconds
+Lap completed
+Completed lap:  37  in  8.8  seconds
+Lap completed
+Completed lap:  38  in  8.6  seconds
+Lap completed
+Completed lap:  39  in  8.7  seconds
+Lap completed
+Completed lap:  40  in  8.5  seconds
+Lap completed
+Completed lap:  41  in  8.5  seconds
+Lap completed
+Completed lap:  42  in  8.7  seconds
+Lap completed
+Completed lap:  43  in  8.2  seconds
+===== LMPC terminated
+Lap time at iteration  0  is  49.2 s
+Lap time at iteration  1  is  49.2 s
+Lap time at iteration  2  is  49.2 s
+Lap time at iteration  3  is  49.2 s
+Lap time at iteration  4  is  31.5 s
+Lap time at iteration  5  is  27.2 s
+Lap time at iteration  6  is  23.9 s
+Lap time at iteration  7  is  21.8 s
+Lap time at iteration  8  is  20.2 s
+Lap time at iteration  9  is  18.8 s
+Lap time at iteration  10  is  17.6 s
+Lap time at iteration  11  is  16.7 s
+Lap time at iteration  12  is  15.7 s
+Lap time at iteration  13  is  14.8 s
+Lap time at iteration  14  is  14.1 s
+Lap time at iteration  15  is  13.6 s
+Lap time at iteration  16  is  13.0 s
+Lap time at iteration  17  is  12.3 s
+Lap time at iteration  18  is  12.1 s
+Lap time at iteration  19  is  11.5 s
+Lap time at iteration  20  is  11.1 s
+Lap time at iteration  21  is  10.9 s
+Lap time at iteration  22  is  10.5 s
+Lap time at iteration  23  is  10.3 s
+Lap time at iteration  24  is  10.1 s
+Lap time at iteration  25  is  9.9 s
+Lap time at iteration  26  is  9.6 s
+Lap time at iteration  27  is  9.7 s
+Lap time at iteration  28  is  9.3 s
+Lap time at iteration  29  is  9.4 s
+Lap time at iteration  30  is  9.4 s
+Lap time at iteration  31  is  9.2 s
+Lap time at iteration  32  is  9.3 s
+Lap time at iteration  33  is  9.1 s
+Lap time at iteration  34  is  9.1 s
+Lap time at iteration  35  is  9.1 s
+Lap time at iteration  36  is  8.9 s
+Lap time at iteration  37  is  8.8 s
+Lap time at iteration  38  is  8.6 s
+Lap time at iteration  39  is  8.7 s
+Lap time at iteration  40  is  8.5 s
+Lap time at iteration  41  is  8.5 s
+Lap time at iteration  42  is  8.7 s
+Lap time at iteration  43  is  8.2 s
+===== Start Plotting
